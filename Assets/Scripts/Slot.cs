@@ -47,8 +47,8 @@ public class Slot : MonoBehaviour {
 
 	public void enableButton(){
 		
-		slotButton.enabled = false;
-		HUDImage.enabled = false;
+		slotButton.enabled = true;
+		HUDImage.enabled = true;
 		
 	}
 
@@ -105,6 +105,13 @@ public class Slot : MonoBehaviour {
 
 		HUDImage.sprite = cardImage;
 		HUDImage.material = null;
+
+	}
+
+	public void newImage(Sprite img){
+
+		cardImage = img;
+		HUDImage.sprite = cardImage;
 
 	}
 

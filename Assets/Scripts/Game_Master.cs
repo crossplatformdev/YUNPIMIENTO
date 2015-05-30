@@ -148,18 +148,27 @@ public class Game_Master : MonoBehaviour {
 		cardBase = (GameObject)GameObject.FindWithTag("Database");
 
 		handCards[0] = cardBase.GetComponent<Database>().events[0];
+		slotManager.UpdateSlots("eve", 0, handCards[0].getID()-1); 
 		print (" handCards " + handCards[0].getType() + " " + handCards[0].getID ()); 
 		handCards[1] = cardBase.GetComponent<Database>().events[1];
+		slotManager.UpdateSlots("eve", 1, handCards[1].getID()-1); 
 		handCards[2] = cardBase.GetComponent<Database>().events[2];
+		slotManager.UpdateSlots("eve", 2, handCards[2].getID()-1); 
 
 		handCards[3] = cardBase.GetComponent<Database>().locations[0];
+		slotManager.UpdateSlots("loc", 3, handCards[3].getID()-1); 
 		handCards[4] = cardBase.GetComponent<Database>().locations[1];
+		slotManager.UpdateSlots("loc", 4, handCards[4].getID()-1); 
 
 		handCards[5] = cardBase.GetComponent<Database>().consecuences[0];
+		slotManager.UpdateSlots("loc", 5, handCards[5].getID()-1); 
+
 		handCards[6] = cardBase.GetComponent<Database>().consecuences[1];
+		slotManager.UpdateSlots("loc", 6, handCards[6].getID()-1); 
+
 		
-		handCards = Shuffle(handCards);
-		handCards = Shuffle(handCards);
+		//handCards = Shuffle(handCards);
+	//	handCards = Shuffle(handCards);
 		//handCards = Shuffle(handCards);
 		//handCards = Shuffle(handCards);
 		//handCards = Shuffle(handCards);
