@@ -12,7 +12,7 @@ public class Database : MonoBehaviour{
 	public List<CardLogic> locsycons = new List<CardLogic>();
 
 	
-	void Start(){
+	void Awake(){
 	
 		events.Add(new CardLogic("eve", 1, "infarto"));
 		events.Add(new CardLogic("eve", 2, "palmada"));

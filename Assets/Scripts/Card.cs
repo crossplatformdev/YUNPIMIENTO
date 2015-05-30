@@ -11,11 +11,11 @@ public class Card : MonoBehaviour {
 	[SerializeField] private Sprite cardImage;
 	private int idCard;
 	private CardLogic card;
-	private Database cardBase;
+	[SerializeField]private Database cardBase;
 
 	void Awake(){
 
-		cardBase = GameObject.FindWithTag("Database").GetComponent<Database>();
+		//cardBase = GameObject.FindWithTag("Database").GetComponent<Database>();
 
 	}
 
@@ -57,6 +57,12 @@ public class Card : MonoBehaviour {
 		
 	}
 
+	public string getType(){
+
+		return card.getType ();
+
+	}
+
 	public void getEventCard(){
 
 		card = cardBase.events[Random.Range (0, 6)];
@@ -71,7 +77,6 @@ public class Card : MonoBehaviour {
 		setID(card.getID ());
 		// Buscar recursos de imagen.
 
-
 	}
 	
 	public void getConsecuenceCard(){
@@ -79,16 +84,6 @@ public class Card : MonoBehaviour {
 		setCard (cardBase.consecuences[Random.Range (0, 6)]);
 		setID(card.getID ());
 		// Buscar recursos de imagen.
-	
-
-	}
-
-
-
-
-	void OnClick(){
-
-
 
 	}
 
