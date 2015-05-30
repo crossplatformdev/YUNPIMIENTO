@@ -8,6 +8,8 @@ public class Card : MonoBehaviour {
 
 	// ----------------- Properties
 
+	public static CardLogic[] cards = new CardLogic[7]; // PRUEBA --------------->>>>
+
 	[SerializeField] private Sprite cardImage;
 	private int idCard;
 	private CardLogic card;
@@ -15,7 +17,15 @@ public class Card : MonoBehaviour {
 
 	void Awake(){
 
-		//cardBase = GameObject.FindWithTag("Database").GetComponent<Database>();
+		cardBase = GameObject.FindWithTag("Database").GetComponent<Database>();
+
+
+		for (int i = 0; i < 7; i++){
+
+			cards[i] = cardBase.events[i];               // PRUEBA --------------->>>>
+			print (cards[i].puntPosteriores[i]);
+
+		}
 
 	}
 

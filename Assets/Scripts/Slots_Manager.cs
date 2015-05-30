@@ -200,7 +200,7 @@ public class Slots_Manager : MonoBehaviour {
 
 		}
 
-		for (int i = 0; i < handSlots.Length; i++){
+		for (int i = 0; i < 7; i++){
 
 			handSlots[i].enableButton();
 			print ("Rehabilitando " + i);

@@ -14,6 +14,8 @@ public class Slot : MonoBehaviour {
 
 	private Button slotButton;
 
+	private static int disableLimit = 0;
+
 	public enum slotTypes{ // Esto esta por determinar.
 		
 		Previous, Midle, Next
@@ -40,9 +42,11 @@ public class Slot : MonoBehaviour {
 
 	public void disableButton(){
 
-		slotButton.enabled = false;
-		HUDImage.enabled = false;
-
+		if(disableLimit < 2){
+			disableLimit++;
+			slotButton.enabled = false;
+			HUDImage.enabled = false;
+		}
 	}
 
 	public void enableButton(){
@@ -136,5 +140,10 @@ public class Slot : MonoBehaviour {
 				
 	}
 
+	void OnDrag(){
+
+		if(sequenceSlot != true) GetComponent<RectTransform>().position = Input.mousePosition;
+
+	}
 
 }
