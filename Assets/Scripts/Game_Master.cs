@@ -64,9 +64,18 @@ public class Game_Master : MonoBehaviour {
 	GameObject ConCard;
 	GameObject ConCard2;
 	
+<<<<<<< HEAD
 	CardLogic myConCard;
 	CardLogic myConCard2;
 */	
+=======
+	Card myConCard;
+	Card myConCard2;
+
+	public GameObject fader;
+	Fader fader2;
+
+>>>>>>> origin/master
 	// -------------------- Elementos de la Escena -----------
 
 	[SerializeField] private Wife theWife;
@@ -82,8 +91,14 @@ public class Game_Master : MonoBehaviour {
 		handCards = new CardLogic[7];
 		enableControl = false;
 		theWife.setAffinity(25);
+<<<<<<< HEAD
 
 		//BuildDeck();
+=======
+		fader2 = fader.GetComponentInChildren<Fader>();
+		BuildDeck();
+	
+>>>>>>> origin/master
 
 	}
 
@@ -175,7 +190,8 @@ public class Game_Master : MonoBehaviour {
 
 	public void CinematicScene(){
 
-
+		StartCoroutine ("FadeScene");
+		// FOTOS INTERMEDIAS, TEXTO, PAUSA, PULSE PARA CONTINUAR, TRANSICION,...
 
 	}
 
