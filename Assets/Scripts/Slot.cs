@@ -9,8 +9,10 @@ public class Slot : MonoBehaviour {
 	[SerializeField] private bool sequenceSlot;
 	[SerializeField] private Image HUDImage;
 	[SerializeField] private Card currentCard;
-	private Material HUDMat;
+	private Sprite HUDdefault;
 	private Sprite cardImage;
+
+	private Button slotButton;
 
 	public enum slotTypes{ // Esto esta por determinar.
 		
@@ -22,12 +24,32 @@ public class Slot : MonoBehaviour {
 
 	// --------------------- Init --------------------
 
-	void Start(){
+	void Awake(){
 
 		HUDImage = this.GetComponent<Image>();
-		HUDMat = HUDImage.material;
-		if(sequenceSlot != true)UpdateImage ();
+		HUDdefault = HUDImage.sprite;
 
+		if(sequenceSlot != true){
+
+			UpdateImage ();
+			slotButton = GetComponent<Button> ();
+
+		}
+
+	}
+
+	public void disableButton(){
+
+		slotButton.enabled = false;
+		HUDImage.enabled = false;
+
+	}
+
+	public void enableButton(){
+		
+		slotButton.enabled = false;
+		HUDImage.enabled = false;
+		
 	}
 
 	// --------------------- Getters y Setters ---------
@@ -35,6 +57,7 @@ public class Slot : MonoBehaviour {
 	public void setCard(Card card){
 
 		currentCard = card;
+		UpdateImage ();
 
 	}
 
@@ -78,10 +101,21 @@ public class Slot : MonoBehaviour {
 
 		if(HUDImage.sprite != null) cardImage = HUDImage.sprite;
 		currentCard = null;
-		HUDImage.material = HUDMat;
+		HUDImage.sprite = HUDdefault;
 
 	}
 
+	public void Disable(){
+
+	
+
+	}
+
+	public void Enable(){
+		
+
+		
+	}
 
 
 }

@@ -1,6 +1,8 @@
 ﻿
 using System.Collections;
 
+
+
 public class CardLogic{
 
 	// ----------------- Properties

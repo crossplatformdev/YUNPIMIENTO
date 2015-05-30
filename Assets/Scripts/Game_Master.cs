@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Game_Master : MonoBehaviour {
 
@@ -39,6 +40,30 @@ public class Game_Master : MonoBehaviour {
 
 	public GameObject cardPref;
 
+	// Cartas.
+
+	GameObject EveCard;
+	GameObject EveCard2;
+	GameObject EveCard3;
+
+	
+
+	Card myEveCard;
+	Card myEveCard2;
+	Card myEveCard3;
+	
+	GameObject LocCard;
+	GameObject LocCard2;
+
+	Card myLocCard;
+	Card myLocCard2;
+	
+	GameObject ConCard;
+	GameObject ConCard2;
+	
+	Card myConCard;
+	Card myConCard2;
+	
 	// -------------------- Elementos de la Escena -----------
 
 	[SerializeField] private Wife theWife;
@@ -47,13 +72,15 @@ public class Game_Master : MonoBehaviour {
 
 	// --------------------- Inicializacion ------------------
 
-	void Start(){
+	void Awake(){
 
 		gameOver = false;
 		gameWon = false;
 		handCards = new Card[7];
 		enableControl = false;
 		theWife.setAffinity(25);
+
+		BuildDeck();
 
 	}
 
@@ -76,9 +103,12 @@ public class Game_Master : MonoBehaviour {
 
 		CinematicScene ();
 
+		day++;
+
 		if(gameOver == false)slotManager.ResetSlots();
 		ShuffleDeck();
-		day++;
+
+		slotManager.BuildHand(handCards);
 
 		enableControl = true;
 
@@ -104,36 +134,66 @@ public class Game_Master : MonoBehaviour {
 		}
 
 	}
+
+	public void BuildDeck(){
+
+		EveCard = GameObject.Instantiate (cardPref) as GameObject;
+		myEveCard = EveCard.GetComponent<Card>();
+		EveCard2 = GameObject.Instantiate (cardPref) as GameObject;
+		myEveCard2 = EveCard.GetComponent<Card>();
+		EveCard3 = GameObject.Instantiate (cardPref) as GameObject;
+		myEveCard3 = EveCard.GetComponent<Card>();
+
+		LocCard = GameObject.Instantiate (cardPref) as GameObject;
+		myLocCard = EveCard.GetComponent<Card>();
+		LocCard2 = GameObject.Instantiate (cardPref) as GameObject;
+		myLocCard2 = EveCard.GetComponent<Card>();
+
+		ConCard = GameObject.Instantiate (cardPref) as GameObject;
+		myConCard = EveCard.GetComponent<Card>();
+		ConCard2 = GameObject.Instantiate (cardPref) as GameObject;
+		myConCard2 = EveCard.GetComponent<Card>();
+
+	}
 	
 	public void ShuffleDeck(){
 
+		
 
-		GameObject EveCard = GameObject.Instantiate (cardPref) as GameObject;
-		Card myEveCard = EveCard.GetComponent<Card>();
-		GameObject EveCard2 = GameObject.Instantiate (cardPref) as GameObject;
-		Card myEveCard2 = EveCard.GetComponent<Card>();
-		GameObject EveCard3 = GameObject.Instantiate (cardPref) as GameObject;
-		Card myEveCard3 = EveCard.GetComponent<Card>();
-
+		
 		myEveCard.getEventCard();
+		
+	/*	do{
+			myEveCard2.getEventCard();
+		}while (myEveCard2.getID() == myEveCard.getID());
+		
+		do{
+			myEveCard3.getEventCard();
+		}while (myEveCard3.getID() == myEveCard.getID() || myEveCard3.getID() == myEveCard2.getID());
+	*/	
+	
+
 		myEveCard2.getEventCard();
 		myEveCard3.getEventCard();
 
 
-		GameObject LocCard = GameObject.Instantiate (cardPref) as GameObject;
-		Card myLocCard = EveCard.GetComponent<Card>();
-		GameObject LocCard2 = GameObject.Instantiate (cardPref) as GameObject;
-		Card myLocCard2 = EveCard.GetComponent<Card>();
-
 		myLocCard.getLocationCard();
+	
+	/*	do{
+			myLocCard2.getLocationCard();
+		}while (myLocCard2.getID() == myLocCard.getID());
+	*/
 		myLocCard2.getLocationCard();
 
-		GameObject ConCard = GameObject.Instantiate (cardPref) as GameObject;
-		Card myConCard = EveCard.GetComponent<Card>();
-		GameObject ConCard2 = GameObject.Instantiate (cardPref) as GameObject;
-		Card myConCard2 = EveCard.GetComponent<Card>();
+		
 		myConCard.getConsecuenceCard();
-		myConCard2.getConsecuenceCard();
+
+	/*	do{
+			myConCard2.getConsecuenceCard();
+		}while (myConCard2.getID() == myConCard.getID());
+		
+*/
+		myConCard.getConsecuenceCard();
 
 		handCards[0] = myEveCard;
 		handCards[1] = myEveCard2;
@@ -145,11 +205,20 @@ public class Game_Master : MonoBehaviour {
 
 		handCards[5] = myConCard;
 		handCards[6] = myConCard2;
+		
+		handCards = Shuffle(handCards);
+		handCards = Shuffle(handCards);
+		handCards = Shuffle(handCards);
+		handCards = Shuffle(handCards);
+		handCards = Shuffle(handCards);
+		handCards = Shuffle(handCards);
 
 		Debug.Log (handCards[1].getID());
 
 
 	}
+
+
 
 	public void CinematicScene(){
 
@@ -212,6 +281,29 @@ public class Game_Master : MonoBehaviour {
 		Application.Quit ();
 
 	}
+	
+	public Card[] ShuffleX(int i, Card[] deck){
+		for (int x = 0; x<i; x++){
+			deck = Shuffle (deck);
+		}
+		return deck;
+	}
+	
+	
+	public Card[] Shuffle(Card[] deck){  
+		System.Random r = new System.Random(DateTime.Now.Millisecond);
+		Card temp;
+		int randomNumber;
+		int count = deck.Length;
+		for (int index = count -1; index > 0; index--){
+			randomNumber = r.Next(0, index+1);
+			temp = deck [index];
+			deck[index] = deck[randomNumber];
+			deck[randomNumber] = temp;
+		}	
+		return deck;	
+	}
+		
 
 }
 

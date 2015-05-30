@@ -13,7 +13,7 @@ public class Card : MonoBehaviour {
 	private CardLogic card;
 	private Database cardBase;
 
-	void Start (){
+	void Awake(){
 
 		cardBase = GameObject.FindWithTag("Database").GetComponent<Database>();
 

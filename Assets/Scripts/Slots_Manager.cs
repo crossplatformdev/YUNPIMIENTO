@@ -24,6 +24,7 @@ public class Slots_Manager : MonoBehaviour {
 	// -------------------- Properties --------------
 
 	[SerializeField] private Slot[] seqSlots;
+	[SerializeField] private Slot[] handSlots;
 	private bool[] slotsFilled;
 	private int freePlace;
 	
@@ -56,18 +57,28 @@ public class Slots_Manager : MonoBehaviour {
 
 		//if(Game_Master.GMinstance.getControlStatus() == true){
 		
-			seqSlots[freePlace].setCard (slot.getCard());
-			seqSlots[freePlace].UpdateImage();
-			slotsFilled[freePlace] = true;
-			freePlace++;
-			print("Asignando carta " + freePlace);
+		seqSlots[freePlace].setCard (slot.getCard());
+		seqSlots[freePlace].UpdateImage();
+		slotsFilled[freePlace] = true;
+		freePlace++;
+		print("Asignando carta " + freePlace);
 
-			Game_Master.GMinstance.CheckRound ();
+		Game_Master.GMinstance.CheckRound ();
 
 	//	}
 
 		//}
 
+	}
+
+	public void BuildHand(Card[] hand){
+		
+		for(int i =0; i < handSlots.Length; i++){
+
+			handSlots[i].setCard (hand[i]);
+
+		}
+			
 	}
 
 	// Comprueba que sigue habiendo slots disponibles.
