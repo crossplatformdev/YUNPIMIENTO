@@ -8,7 +8,7 @@ public class Slot : MonoBehaviour {
 
 	[SerializeField] private bool sequenceSlot;
 	[SerializeField] private Image HUDImage;
-	[SerializeField] private Card currentCard;
+	[SerializeField] private CardLogic currentCard;
 	private Sprite HUDdefault;
 	private Sprite cardImage;
 
@@ -54,7 +54,7 @@ public class Slot : MonoBehaviour {
 
 	// --------------------- Getters y Setters ---------
 
-	public void setCard(Card card){
+	public void setCard(CardLogic card){
 
 		currentCard = card;
 		UpdateImage ();
@@ -67,7 +67,7 @@ public class Slot : MonoBehaviour {
 
 	}
 
-	public Card getCard(){
+	public CardLogic getCard(){
 
 		return currentCard;
 

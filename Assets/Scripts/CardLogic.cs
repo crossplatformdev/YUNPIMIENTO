@@ -1,13 +1,12 @@
-﻿
+﻿using UnityEngine;
 using System.Collections;
 
 
 
-public class CardLogic{
+public class CardLogic {
 
 	// ----------------- Properties
 
-	private Card card;
 	private string cardName;
 	private int id;
 	
@@ -20,6 +19,14 @@ public class CardLogic{
 
 	public CardLogic(){
 		
+	}
+
+	[SerializeField]private Database cardBase;
+	
+	void Awake(){
+		
+		cardBase = GameObject.FindWithTag("Database").GetComponent<Database>();
+
 	}
 	
 	public CardLogic(string type, int id, string cardName){

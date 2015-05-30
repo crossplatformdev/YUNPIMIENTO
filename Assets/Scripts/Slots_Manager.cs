@@ -58,8 +58,7 @@ public class Slots_Manager : MonoBehaviour {
 		//if(Game_Master.GMinstance.getControlStatus() == true){
 		
 		seqSlots[freePlace].setCard (slot.getCard());
-		//seqSlots[freePlace].UpdateImage();
-		print (seqSlots[freePlace].getCard ().getType());
+		seqSlots[freePlace].UpdateImage();
 		slotsFilled[freePlace] = true;
 		freePlace++;
 		print("Asignando carta " + freePlace);
@@ -72,7 +71,7 @@ public class Slots_Manager : MonoBehaviour {
 
 	}
 
-	public void BuildHand(Card[] hand){
+	public void BuildHand(CardLogic[] hand){
 		
 		for(int i =0; i < handSlots.Length; i++){
 
