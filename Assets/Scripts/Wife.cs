@@ -1,11 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Wife : MonoBehaviour {
 
 	// Properties
 
-	private static int affinity;
+	public Slider affinityBar;
+	[SerializeField] private int maxAffinity;
+	private int startValue;
+	private int affinity;
+
+
+
+	void Start(){
+
+		if(maxAffinity <= 10) setAffinity(maxAffinity = 50);
+		affinity = startValue;
+
+	}
 
 	// ------ Getters & Setters
 
@@ -13,7 +26,9 @@ public class Wife : MonoBehaviour {
 	public void setAffinity(int nAffinity){
 
 		affinity = nAffinity;
-
+		affinityBar.maxValue = maxAffinity;
+		startValue = maxAffinity/2;
+		affinityBar.value = startValue;
 	}
 
 	public int getAffinity(){
@@ -24,18 +39,35 @@ public class Wife : MonoBehaviour {
 
 	public void UpdateAffinity(int nAffinity){
 	
-		affinity += nAffinity;
-		print ("La afinidad ha cambiado a " + affinity);
+		//affintyBar.value += Mathf.MoveTowards(0, nAffinity, 0.1f);
+		if(affinityBar.value + nAffinity > maxAffinity){
 
+			affinityBar.value = maxAffinity;
+			print (affinityBar.value);
+			affinity = maxAffinity;
+			print ("La afinidad ha cambiado a " + affinity);
+
+		}else{
+
+			affinityBar.value += nAffinity;
+			print (affinityBar.value);
+			affinity += nAffinity;
+			print ("La afinidad ha cambiado a " + affinity);
+
+		}
 	}
 
-	public void CheckAffinityStatus(){
+	public int CheckAffinityStatus(){
 
 		if(affinity <= 0){
 
-			Game_Master.GMinstance.GameOver();
+			return -1;
 
-		}
+		}else if (affinity >= maxAffinity){
+
+			return 1;
+
+		}else return 0;
 
 	}
 }

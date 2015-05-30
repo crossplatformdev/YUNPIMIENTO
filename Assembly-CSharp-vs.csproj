@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Card.cs" />
+     <Compile Include="Assets\Scripts\CardLogic.cs" />
+     <Compile Include="Assets\Scripts\Database.cs" />
      <Compile Include="Assets\Scripts\Game_Master.cs" />
      <Compile Include="Assets\Scripts\Slot.cs" />
      <Compile Include="Assets\Scripts\Slots_Manager.cs" />
