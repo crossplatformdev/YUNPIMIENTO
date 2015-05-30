@@ -83,13 +83,13 @@ public class Game_Master : MonoBehaviour {
 		gameOver = false;
 		gameWon = false;
 		enableControl = false;
-		theWife.setAffinity(25);
+//		theWife.setAffinity(25);
 
 	}
 
 	void Start(){
 
-		ShuffleDeck ();
+		//ShuffleDeck ();
 		
 	}
 
@@ -116,7 +116,7 @@ public class Game_Master : MonoBehaviour {
 
 		if(gameOver == false)slotManager.ResetSlots();
 
-		ShuffleDeck();
+		//ShuffleDeck();
 
 		enableControl = true;
 
@@ -205,7 +205,7 @@ public class Game_Master : MonoBehaviour {
 
 		case 2:
 
-		Application.LoadLevel("Prototipo1");
+		Application.LoadLevel("Dummy_1");
 
 			break;
 
