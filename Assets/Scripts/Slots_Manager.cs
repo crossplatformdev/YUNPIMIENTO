@@ -107,31 +107,36 @@ public class Slots_Manager : MonoBehaviour {
 		if(Game_Master.GMinstance.slotCards[1].getType().CompareTo("eve") != 0){
 
 			result = -7;
+			Debug.Log ("Centro no evento!");
 
 			return result;
 
 		}else{
-
+			Debug.Log ("Centro es evento...");
 
 			int nextID = Game_Master.GMinstance.slotCards[2].getID ();
 
 			if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("eve") == 0){
-
+				Debug.Log ("El primer slot es evento...");
 				result += -3;
 
 			}else{
-
+				Debug.Log ("El primer slot no es evento...");
 				int prevID = Game_Master.GMinstance.slotCards[0].getID ();
+				Debug.Log ("El id de la primera carta es: " + prevID);
 
 				int i = 0;
 			
 					for (i = 0; i < 14; i++){
 
 						if(i == prevID - 1){
-
-						if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("con") == 0) result += Game_Master.GMinstance.slotCards[1].puntPrevias[i+7];
+						
+						if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("con") == 0){
+							result += Game_Master.GMinstance.slotCards[1].puntPrevias[i+7];
+							Debug.Log ("La primera carta es consecuencia, y su slot de puntuacion es " + (i+7));
+						}
 						else result += Game_Master.GMinstance.slotCards[1].puntPrevias[i];
-
+							Debug.Log ("El primer slot no es consecuencia");
 						}
 
 					}
@@ -139,11 +144,11 @@ public class Slots_Manager : MonoBehaviour {
 			}
 
 			if(Game_Master.GMinstance.slotCards[2].getType().CompareTo("eve") == 0){
-				
+				Debug.Log ("Ultimo slot es evento");
 				result += -3;
 				
 			}else{
-
+				Debug.Log ("Ultimo slot no es evento");
 				int i = 0;
 
 			
@@ -152,7 +157,11 @@ public class Slots_Manager : MonoBehaviour {
 				
 				if(i == nextID - 1){
 					
-					if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("con") == 0) result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i+7];
+					if(Game_Master.GMinstance.slotCards[2].getType().CompareTo("con") == 0){
+					Debug.Log ("La segunda carta es consecuencia, y su slot de puntuacion es " + (i+7));
+						result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i+7];
+						
+					}
 					else result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i];
 					
 				}
