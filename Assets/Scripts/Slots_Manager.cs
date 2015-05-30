@@ -122,16 +122,19 @@ public class Slots_Manager : MonoBehaviour {
 			}else{
 
 				int prevID = Game_Master.GMinstance.slotCards[0].getID ();
+
+				int i = 0;
 			
-				for (int i = 0; i < 14; i++){
+					for (i = 0; i < 14; i++){
 
-					if(i == prevID - 1){
+						if(i == prevID - 1){
 
-						result += Game_Master.GMinstance.slotCards[1].puntPrevias[i];
+						if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("con") == 0) result += Game_Master.GMinstance.slotCards[1].puntPrevias[i+7];
+						else result += Game_Master.GMinstance.slotCards[1].puntPrevias[i];
+
+						}
 
 					}
-
-				}
 
 			}
 
@@ -141,11 +144,16 @@ public class Slots_Manager : MonoBehaviour {
 				
 			}else{
 
-			for (int i = 0; i < 14; i++){
+				int i = 0;
+
+			
+
+			for (i = 0; i < 14; i++){
 				
 				if(i == nextID - 1){
 					
-					result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i];
+					if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("con") == 0) result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i+7];
+					else result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i];
 					
 				}
 				
