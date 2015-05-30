@@ -4,6 +4,10 @@ using System;
 
 public class Game_Master : MonoBehaviour {
 
+	public Sprite[] eventImages;
+	public Sprite[] locationImages;
+	public Sprite[] consecuencesImages;
+
 	// ----------------------- Singleton ---------------------
 
 	private static Game_Master _GMinstance;
@@ -29,44 +33,43 @@ public class Game_Master : MonoBehaviour {
 
 	private int diffLevel; // nivel de dificultad
 
-	private int totalRounds;
-	private int roundNumber;
-
 	private int day;
 
-	private Card[] handCards; // robo de cartas.
+	public CardLogic[] slotCards = new CardLogic[3];
+
+	public CardLogic[] handCards = new CardLogic[7];// robo de cartas.
 
 	private bool enableControl;
 
-	public GameObject cardPref;
+	private GameObject cardPref;
+
+	private GameObject cardBase;
 
 	// Cartas.
 
+/*
 	GameObject EveCard;
 	GameObject EveCard2;
 	GameObject EveCard3;
 
 	
 
-	Card myEveCard;
-	Card myEveCard2;
-	Card myEveCard3;
+	CardLogic myEveCard;
+	CardLogic myEveCard2;
+	CardLogic myEveCard3;
 	
 	GameObject LocCard;
 	GameObject LocCard2;
 
-	Card myLocCard;
-	Card myLocCard2;
+	CardLogic myLocCard;
+	CardLogic myLocCard2;
 	
 	GameObject ConCard;
 	GameObject ConCard2;
 	
-	Card myConCard;
-	Card myConCard2;
-
-	public GameObject fader;
-	Fader fader2;
-
+	CardLogic myConCard;
+	CardLogic myConCard2;
+*/	
 	// -------------------- Elementos de la Escena -----------
 
 	[SerializeField] private Wife theWife;
@@ -79,18 +82,15 @@ public class Game_Master : MonoBehaviour {
 
 		gameOver = false;
 		gameWon = false;
-		handCards = new Card[7];
 		enableControl = false;
 		theWife.setAffinity(25);
-		fader2 = fader.GetComponentInChildren<Fader>();
-		BuildDeck();
-	
 
 	}
 
 	void Start(){
 
-
+		ShuffleDeck ();
+		
 	}
 
 	// ------------------- Getters y Setters -------------------
@@ -116,9 +116,7 @@ public class Game_Master : MonoBehaviour {
 
 		if(gameOver == false)slotManager.ResetSlots();
 
-		//ShuffleDeck();
-
-		slotManager.BuildHand(handCards);
+		ShuffleDeck();
 
 		enableControl = true;
 
@@ -133,7 +131,7 @@ public class Game_Master : MonoBehaviour {
 
 			result = slotManager.CheckSequence();
 
-			//theWife.UpdateAffinity(result);
+
 			theWife.UpdateAffinity(result);
 
 			if(theWife.CheckAffinityStatus() == -1) GameOver();
@@ -145,78 +143,20 @@ public class Game_Master : MonoBehaviour {
 
 	}
 
-	public void BuildDeck(){
-
-		EveCard = GameObject.Instantiate (cardPref) as GameObject;
-		myEveCard = EveCard.GetComponent<Card>();
-		EveCard2 = GameObject.Instantiate (cardPref) as GameObject;
-		myEveCard2 = EveCard.GetComponent<Card>();
-		EveCard3 = GameObject.Instantiate (cardPref) as GameObject;
-		myEveCard3 = EveCard.GetComponent<Card>();
-
-		LocCard = GameObject.Instantiate (cardPref) as GameObject;
-		myLocCard = EveCard.GetComponent<Card>();
-		LocCard2 = GameObject.Instantiate (cardPref) as GameObject;
-		myLocCard2 = EveCard.GetComponent<Card>();
-
-		ConCard = GameObject.Instantiate (cardPref) as GameObject;
-		myConCard = EveCard.GetComponent<Card>();
-		ConCard2 = GameObject.Instantiate (cardPref) as GameObject;
-		myConCard2 = EveCard.GetComponent<Card>();
-		ShuffleDeck ();
-
-
-	}
-	
 	public void ShuffleDeck(){
 
-		
+		cardBase = (GameObject)GameObject.FindWithTag("Database");
 
-		
-		myEveCard.getEventCard();
-		
-	/*	do{
-			myEveCard2.getEventCard();
-		}while (myEveCard2.getID() == myEveCard.getID());
-		
-		do{
-			myEveCard3.getEventCard();
-		}while (myEveCard3.getID() == myEveCard.getID() || myEveCard3.getID() == myEveCard2.getID());
-	*/	
-	
+		handCards[0] = cardBase.GetComponent<Database>().events[0];
+		print (" handCards " + handCards[0].getType() + " " + handCards[0].getID ()); 
+		handCards[1] = cardBase.GetComponent<Database>().events[1];
+		handCards[2] = cardBase.GetComponent<Database>().events[2];
 
-		myEveCard2.getEventCard();
-		myEveCard3.getEventCard();
+		handCards[3] = cardBase.GetComponent<Database>().locations[0];
+		handCards[4] = cardBase.GetComponent<Database>().locations[1];
 
-
-		myLocCard.getLocationCard();
-	
-	/*	do{
-			myLocCard2.getLocationCard();
-		}while (myLocCard2.getID() == myLocCard.getID());
-	*/
-		myLocCard2.getLocationCard();
-
-		
-		myConCard.getConsecuenceCard();
-
-	/*	do{
-			myConCard2.getConsecuenceCard();
-		}while (myConCard2.getID() == myConCard.getID());
-		
-*/
-		myConCard.getConsecuenceCard();
-
-		handCards[0] = myEveCard;
-		handCards[1] = myEveCard2;
-		handCards[2] = myEveCard3;
-
-
-		handCards[3] = myLocCard;
-		handCards[4] = myLocCard2;
-
-		handCards[5] = myConCard;
-		handCards[6] = myConCard2;
+		handCards[5] = cardBase.GetComponent<Database>().consecuences[0];
+		handCards[6] = cardBase.GetComponent<Database>().consecuences[1];
 		
 		handCards = Shuffle(handCards);
 		handCards = Shuffle(handCards);
@@ -225,7 +165,7 @@ public class Game_Master : MonoBehaviour {
 		//handCards = Shuffle(handCards);
 	//	handCards = Shuffle(handCards);
 
-
+		print (" Estoy asignandooooo");
 
 	}
 
@@ -233,8 +173,7 @@ public class Game_Master : MonoBehaviour {
 
 	public void CinematicScene(){
 
-		StartCoroutine ("FadeScene");
-		// FOTOS INTERMEDIAS, TEXTO, PAUSA, PULSE PARA CONTINUAR, TRANSICION,...
+
 
 	}
 
@@ -294,7 +233,7 @@ public class Game_Master : MonoBehaviour {
 
 	}
 	
-	public Card[] ShuffleX(int i, Card[] deck){
+	public CardLogic[] ShuffleX(int i, CardLogic[] deck){
 		for (int x = 0; x<i; x++){
 			deck = Shuffle (deck);
 		}
@@ -302,10 +241,10 @@ public class Game_Master : MonoBehaviour {
 	}
 	
 	
-	public Card[] Shuffle(Card[] deck){  
+	public CardLogic[] Shuffle(CardLogic[] deck){  
 
 		System.Random r = new System.Random(DateTime.Now.Millisecond);
-		Card temp;
+		CardLogic temp;
 		int randomNumber;
 		int count = deck.Length;
 		for (int index = count -1; index > 0; index--){

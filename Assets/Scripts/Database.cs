@@ -60,7 +60,7 @@ public class Database : MonoBehaviour{
 		string[,] grid = SplitCsvGrid(csvFile.text);
 		Debug.Log("size = " + (1+ grid.GetUpperBound(0)) + "," + (1 + grid.GetUpperBound(1))); 
 		
-		DebugOutputGrid(grid); 
+		//DebugOutputGrid(grid); 
 		//data = grid;
 		MakeCards(grid);
 		//DebugDatabase();
@@ -78,7 +78,7 @@ public class Database : MonoBehaviour{
 			}
 			textOutput += "\n"; 
 		}
-		Debug.Log(textOutput);
+		//Debug.Log(textOutput);
 		//Debug.Log(" a ");
 	}
 	
@@ -159,7 +159,7 @@ public class Database : MonoBehaviour{
 		
 		for (int j = 0; j<7; j++){
 			for (int i = 0; i < data.GetUpperBound(0)-3; i++){
-				Debug.Log(data[i+2,yPrevias+1+j]);
+				//Debug.Log(data[i+2,yPrevias+1+j]);
 				events[j].SetPuntPrevia(i,int.Parse(data[i+2,yPrevias+1+j]));
 			}
 		}
@@ -167,7 +167,7 @@ public class Database : MonoBehaviour{
 		
 		for (int j = 0; j<7; j++){
 			for (int i = 0; i < data.GetUpperBound(0)-3; i++){
-				Debug.Log(data[i+2,yPosteriores+1+j]);
+				//Debug.Log(data[i+2,yPosteriores+1+j]);
 				events[j].SetPuntPosterior(i,int.Parse(data[i+2,yPosteriores+1+j]));
 			}
 		}

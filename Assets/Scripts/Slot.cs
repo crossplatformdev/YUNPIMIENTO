@@ -8,7 +8,7 @@ public class Slot : MonoBehaviour {
 
 	[SerializeField] private bool sequenceSlot;
 	[SerializeField] private Image HUDImage;
-	[SerializeField] private Card currentCard;
+	[SerializeField] private CardLogic currentCard;
 	private Sprite HUDdefault;
 	private Sprite cardImage;
 
@@ -31,7 +31,7 @@ public class Slot : MonoBehaviour {
 
 		if(sequenceSlot != true){
 
-			UpdateImage ();
+			//UpdateImage ();
 			slotButton = GetComponent<Button> ();
 
 		}
@@ -54,10 +54,10 @@ public class Slot : MonoBehaviour {
 
 	// --------------------- Getters y Setters ---------
 
-	public void setCard(Card card){
+	public void setCard(CardLogic card){
 
 		currentCard = card;
-		UpdateImage ();
+		//UpdateImage ();
 
 	}
 
@@ -67,7 +67,7 @@ public class Slot : MonoBehaviour {
 
 	}
 
-	public Card getCard(){
+	public CardLogic getCard(){
 
 		return currentCard;
 
@@ -81,17 +81,28 @@ public class Slot : MonoBehaviour {
 
 
 	// ----------------------- Metodos y Funcionalidad --
+	
 
-	public bool HaveCard(){
+	public void UpdateImage(int op, int pos){
 
-		if(currentCard != null) return true;
-		else return false;
+		if(op == 0){
 
-	}
+			cardImage = Game_Master.GMinstance.eventImages[Game_Master.GMinstance.slotCards[pos].getID()-1];
+	
+		}
 
-	public void UpdateImage(){
+		if(op == 1){
 
-		cardImage = currentCard.getImage();
+			cardImage = Game_Master.GMinstance.locationImages[Game_Master.GMinstance.slotCards[pos].getID()-1];
+		
+		}
+
+		if(op == 2){
+			
+			cardImage = 	cardImage = Game_Master.GMinstance.consecuencesImages[Game_Master.GMinstance.slotCards[pos].getID()-1];
+			
+		}
+
 		HUDImage.sprite = cardImage;
 		HUDImage.material = null;
 
@@ -107,7 +118,7 @@ public class Slot : MonoBehaviour {
 
 	public void Disable(){
 
-	
+		
 
 	}
 
