@@ -147,25 +147,55 @@ public class Game_Master : MonoBehaviour {
 
 		cardBase = (GameObject)GameObject.FindWithTag("Database");
 
-		int[] nums = ShuffleBag(7);
+		int[] randNot = new int[3];
 
-		handCards[0] = cardBase.GetComponent<Database>().events[nums[0]];
+		int rand = RandomNums (randNot);
+
+		randNot[0] = rand;
+
+		handCards[0] = cardBase.GetComponent<Database>().events[rand];
 		slotManager.UpdateSlots("eve", 0, handCards[0].getID()-1); 
+
+		rand = RandomNums (randNot);
+		
+		randNot[1] = rand;
+
+
 		print (" handCards " + handCards[0].getType() + " " + handCards[0].getID ()); 
-		handCards[1] = cardBase.GetComponent<Database>().events[nums[1]];
+		handCards[1] = cardBase.GetComponent<Database>().events[rand];
 		slotManager.UpdateSlots("eve", 1, handCards[1].getID()-1);
-		handCards[2] = cardBase.GetComponent<Database>().events[nums[2]];
+
+		rand = RandomNums (randNot);
+		
+		randNot[2] = rand;
+
+
+		handCards[2] = cardBase.GetComponent<Database>().events[rand];
 		slotManager.UpdateSlots("eve", 2, handCards[2].getID()-1); 
 
-		handCards[3] = cardBase.GetComponent<Database>().locations[0];
+
+		handCards[3] = cardBase.GetComponent<Database>().locations[rand];
 		slotManager.UpdateSlots("loc", 3, handCards[3].getID()-1); 
-		handCards[4] = cardBase.GetComponent<Database>().locations[1];
+
+		randNot = new int[3];
+		
+		rand = RandomNums (randNot);
+		
+		randNot[0] = rand;
+
+		handCards[4] = cardBase.GetComponent<Database>().locations[rand];
 		slotManager.UpdateSlots("loc", 4, handCards[4].getID()-1); 
 
-		handCards[5] = cardBase.GetComponent<Database>().consecuences[0];
+		handCards[5] = cardBase.GetComponent<Database>().consecuences[rand];
 		slotManager.UpdateSlots("con", 5, handCards[5].getID()-1); 
 
-		handCards[6] = cardBase.GetComponent<Database>().consecuences[1];
+		randNot = new int[3];
+		
+		rand = RandomNums (randNot);
+		
+		randNot[0] = rand;
+
+		handCards[6] = cardBase.GetComponent<Database>().consecuences[rand];
 		slotManager.UpdateSlots("con", 6, handCards[6].getID()-1); 
 
 		
@@ -181,6 +211,31 @@ public class Game_Master : MonoBehaviour {
 	}
 
 
+	public int RandomNums(int[] gotNums){
+
+		int rand = UnityEngine.Random.Range (0,7);
+
+		while(isIN(rand, gotNums)){
+
+			rand = UnityEngine.Random.Range (0,7);
+
+		}
+
+		return UnityEngine.Random.Range (0,7);
+
+	}
+
+	public bool isIN(int nRand, int [] nums){
+
+		for(int i = 0; i < nums.Length-1; i++){
+
+			if(nRand == nums [i]) return true;
+
+		}
+
+		return false;
+
+	}
 
 	public void CinematicScene(){
 
