@@ -117,7 +117,7 @@ public class Slots_Manager : MonoBehaviour {
 
 			if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("eve") == 0){
 
-				return -3;
+				result += -3;
 
 			}else{
 
@@ -127,7 +127,7 @@ public class Slots_Manager : MonoBehaviour {
 
 					if(i == prevID - 1){
 
-						result += Game_Master.GMinstance.slotCards[1].puntPrevias[i-1];
+						result += Game_Master.GMinstance.slotCards[1].puntPrevias[i];
 
 					}
 
@@ -135,11 +135,17 @@ public class Slots_Manager : MonoBehaviour {
 
 			}
 
+			if(Game_Master.GMinstance.slotCards[2].getType().CompareTo("eve") == 0){
+				
+				result += -3;
+				
+			}else{
+
 			for (int i = 0; i < 14; i++){
 				
 				if(i == nextID - 1){
 					
-					result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i-1];
+					result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i];
 					
 				}
 				
@@ -147,9 +153,13 @@ public class Slots_Manager : MonoBehaviour {
 
 			print (" resultado " + result + " de la carta");
 
+			
+
+			} 
+
 			return result;
 
-		} 
+		}
 
 	}
 

@@ -167,8 +167,8 @@ public class Game_Master : MonoBehaviour {
 		slotManager.UpdateSlots("loc", 6, handCards[6].getID()-1); 
 
 		
-		handCards = Shuffle(handCards);
-		handCards = Shuffle(handCards);
+		//handCards = Shuffle(handCards);
+	//	handCards = Shuffle(handCards);
 		//handCards = Shuffle(handCards);
 		//handCards = Shuffle(handCards);
 		//handCards = Shuffle(handCards);

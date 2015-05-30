@@ -47,8 +47,8 @@ public class Slot : MonoBehaviour {
 
 	public void enableButton(){
 		
-		slotButton.enabled = false;
-		HUDImage.enabled = false;
+		slotButton.enabled = true;
+		HUDImage.enabled = true;
 		
 	}
 
