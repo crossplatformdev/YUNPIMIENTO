@@ -1,6 +1,0 @@
-<<<<<<< HEAD
-m_EditorVersion: 5.0.2f1
-=======
-m_EditorVersion: UnknownUnityVersion
->>>>>>> origin/master
-m_StandardAssetsVersion: 0
