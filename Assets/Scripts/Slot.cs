@@ -103,7 +103,7 @@ public class Slot : MonoBehaviour {
 
 		if(op == 2){
 			
-			cardImage = 	cardImage = Game_Master.GMinstance.consecuencesImages[Game_Master.GMinstance.slotCards[pos].getID()-1];
+			cardImage = Game_Master.GMinstance.consecuencesImages[Game_Master.GMinstance.slotCards[pos].getID()-1];
 			
 		}
 

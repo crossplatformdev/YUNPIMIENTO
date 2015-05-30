@@ -147,12 +147,14 @@ public class Game_Master : MonoBehaviour {
 
 		cardBase = (GameObject)GameObject.FindWithTag("Database");
 
-		handCards[0] = cardBase.GetComponent<Database>().events[0];
+		int[] nums = ShuffleBag(7);
+
+		handCards[0] = cardBase.GetComponent<Database>().events[nums[0]];
 		slotManager.UpdateSlots("eve", 0, handCards[0].getID()-1); 
 		print (" handCards " + handCards[0].getType() + " " + handCards[0].getID ()); 
-		handCards[1] = cardBase.GetComponent<Database>().events[1];
-		slotManager.UpdateSlots("eve", 1, handCards[1].getID()-1); 
-		handCards[2] = cardBase.GetComponent<Database>().events[2];
+		handCards[1] = cardBase.GetComponent<Database>().events[nums[1]];
+		slotManager.UpdateSlots("eve", 1, handCards[1].getID()-1);
+		handCards[2] = cardBase.GetComponent<Database>().events[nums[2]];
 		slotManager.UpdateSlots("eve", 2, handCards[2].getID()-1); 
 
 		handCards[3] = cardBase.GetComponent<Database>().locations[0];
@@ -161,10 +163,10 @@ public class Game_Master : MonoBehaviour {
 		slotManager.UpdateSlots("loc", 4, handCards[4].getID()-1); 
 
 		handCards[5] = cardBase.GetComponent<Database>().consecuences[0];
-		slotManager.UpdateSlots("loc", 5, handCards[5].getID()-1); 
+		slotManager.UpdateSlots("con", 5, handCards[5].getID()-1); 
 
 		handCards[6] = cardBase.GetComponent<Database>().consecuences[1];
-		slotManager.UpdateSlots("loc", 6, handCards[6].getID()-1); 
+		slotManager.UpdateSlots("con", 6, handCards[6].getID()-1); 
 
 		
 		//handCards = Shuffle(handCards);
@@ -214,7 +216,7 @@ public class Game_Master : MonoBehaviour {
 
 		case 2:
 
-		Application.LoadLevel("Prototipo1");
+		Application.LoadLevel("Dummy_1");
 
 			break;
 
@@ -265,6 +267,45 @@ public class Game_Master : MonoBehaviour {
 		return deck;	
 	}
 		
+
+	public int[] ShuffleBag(int cant){
+
+		int[] tempNum = new int[cant];
+
+		for (int i = 0; i < tempNum.Length; i++){
+
+			tempNum[i] = i;
+
+		}
+
+		// swapper
+
+		int num;
+		int rand;
+
+		for(int i = 0; i < 12; i++){
+
+			rand = UnityEngine.Random.Range (0, 7);
+			 
+			num = tempNum[rand];
+
+			if(rand+1 > tempNum.Length-1){
+
+				tempNum[rand] = tempNum[rand-1];
+				tempNum[rand-1] = rand;
+
+			}else{ 
+
+				tempNum[rand] = tempNum[rand+1];
+				tempNum[rand+1] = rand;
+
+			}
+
+		}
+
+		return tempNum;
+
+	}
 
 }
 
