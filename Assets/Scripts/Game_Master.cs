@@ -79,8 +79,13 @@ public class Game_Master : MonoBehaviour {
 		handCards = new Card[7];
 		enableControl = false;
 		theWife.setAffinity(25);
-
 		BuildDeck();
+	
+
+	}
+
+	void Start(){
+
 
 	}
 
@@ -106,7 +111,8 @@ public class Game_Master : MonoBehaviour {
 		day++;
 
 		if(gameOver == false)slotManager.ResetSlots();
-		ShuffleDeck();
+
+		//ShuffleDeck();
 
 		slotManager.BuildHand(handCards);
 
@@ -124,7 +130,7 @@ public class Game_Master : MonoBehaviour {
 			result = slotManager.CheckSequence();
 
 			//theWife.UpdateAffinity(result);
-			theWife.UpdateAffinity(10);
+			theWife.UpdateAffinity(result);
 
 			if(theWife.CheckAffinityStatus() == -1) GameOver();
 			else if (theWife.CheckAffinityStatus () == 1) GameWon ();
@@ -153,6 +159,8 @@ public class Game_Master : MonoBehaviour {
 		myConCard = EveCard.GetComponent<Card>();
 		ConCard2 = GameObject.Instantiate (cardPref) as GameObject;
 		myConCard2 = EveCard.GetComponent<Card>();
+		ShuffleDeck ();
+
 
 	}
 	
@@ -208,12 +216,11 @@ public class Game_Master : MonoBehaviour {
 		
 		handCards = Shuffle(handCards);
 		handCards = Shuffle(handCards);
-		handCards = Shuffle(handCards);
-		handCards = Shuffle(handCards);
-		handCards = Shuffle(handCards);
-		handCards = Shuffle(handCards);
+		//handCards = Shuffle(handCards);
+		//handCards = Shuffle(handCards);
+		//handCards = Shuffle(handCards);
+	//	handCards = Shuffle(handCards);
 
-		Debug.Log (handCards[1].getID());
 
 
 	}
@@ -291,6 +298,7 @@ public class Game_Master : MonoBehaviour {
 	
 	
 	public Card[] Shuffle(Card[] deck){  
+
 		System.Random r = new System.Random(DateTime.Now.Millisecond);
 		Card temp;
 		int randomNumber;

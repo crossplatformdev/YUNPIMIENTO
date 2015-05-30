@@ -112,9 +112,10 @@ public class Slot : MonoBehaviour {
 	}
 
 	public void Enable(){
-		
-
-		
+			
+		slotButton.enabled = true;
+		HUDImage.enabled = true;
+				
 	}
 
 

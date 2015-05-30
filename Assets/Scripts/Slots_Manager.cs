@@ -30,7 +30,7 @@ public class Slots_Manager : MonoBehaviour {
 	
 	// -------------------- Init --------------------
 
-	void Start(){
+	void Awake(){
 
 		freePlace = 0; 
 		slotsFilled = new bool[seqSlots.Length];
@@ -58,7 +58,8 @@ public class Slots_Manager : MonoBehaviour {
 		//if(Game_Master.GMinstance.getControlStatus() == true){
 		
 		seqSlots[freePlace].setCard (slot.getCard());
-		seqSlots[freePlace].UpdateImage();
+		//seqSlots[freePlace].UpdateImage();
+		print (seqSlots[freePlace].getCard ().getType());
 		slotsFilled[freePlace] = true;
 		freePlace++;
 		print("Asignando carta " + freePlace);
@@ -76,6 +77,7 @@ public class Slots_Manager : MonoBehaviour {
 		for(int i =0; i < handSlots.Length; i++){
 
 			handSlots[i].setCard (hand[i]);
+			print ("metiendo cartas " + i);
 
 		}
 			
@@ -97,13 +99,47 @@ public class Slots_Manager : MonoBehaviour {
 
 	public int CheckSequence(){
 
-		int result;
+		int result = 0;
 	
-	//	if
-	//	result = events.getValue(seqSlots[0].getCard () );
-	//	result += events.getValue(seqSlots[0].getCard () );
+		if(seqSlots[1].getCard().getType() != "eve"){
 
-		return 0; // IMPLEMENTARRRRR!!!!!!
+			result = -7;
+
+			print (" resultado " + result + " de la carta " + seqSlots[1].getCard().getID());
+
+			return result;
+
+		}else{
+
+			int prevID = seqSlots[0].getCard().getID ();
+			int nextID = seqSlots[2].getCard().getID ();
+				CardLogic midCard = seqSlots[1].getCard ().getCard ();
+
+			for (int i = 0; i < 14; i++){
+
+					if(i == prevID - 1){
+
+					result += midCard.puntPrevias[i-1];
+
+				}
+
+			}
+
+			for (int i = 0; i < 14; i++){
+				
+				if(i == nextID - 1){
+					
+					result += midCard.puntPosteriores[i-1];
+					
+				}
+				
+			}
+
+			print (" resultado " + result + " de la carta " + seqSlots[1].getCard().getID());
+
+			return result;
+
+		} 
 
 	}
 
@@ -118,6 +154,13 @@ public class Slots_Manager : MonoBehaviour {
 
 			seqSlots[i].ResetCard();
 			slotsFilled[i] = false;
+
+		}
+
+		for (int i = 0; i < handSlots.Length; i++){
+
+			handSlots[i].enableButton();
+			print ("Rehabilitando " + i);
 
 		}
 

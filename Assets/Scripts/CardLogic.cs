@@ -43,6 +43,12 @@ public class CardLogic{
 		puntPosteriores[pos] = punt;
 	}
 
+	public string getType(){
+
+		return type;
+
+	}
+
 	public int getID(){
 
 		return id;
