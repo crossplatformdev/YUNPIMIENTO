@@ -19,23 +19,25 @@ public class ScaleUpDown : MonoBehaviour {
 	void Update () {
 		
 		if (scaleUp){ 
+			cardCon.position = new Vector3(cardCon.position.x, cardCon.position.y, -1);
 			cont++;
-			if (cont <= 30) cardCon.localScale += new Vector3(0.04f, 0.06f, 0.04f);
+			if (cont <= 20) cardCon.sizeDelta = cardCon.sizeDelta + new Vector2(2f, 2f);
 		}//else transform.localScale = original.localScale;
 	}
 	
 	
 	void OnMouseEnter(){
-
-			cardCon.position = new Vector3(transform.position.x,transform.position.y, transform.position.z * (float)(1d/10d));
+			Debug.Log ("Entro!");
+		//	cardCon.position = new Vector3(transform.position.x,transform.position.y, transform.position.z * (float)(1d/10d));
 			scaleUp = true;
 
 	}
 	
 	void OnMouseExit(){
-		
-		cardCon.position = new Vector3(transform.position.x,transform.position.y, transform.position.z * (float)(11d/ 10d));
-			cardCon.localScale = new Vector3 (1, 1.5f, 1);
+			
+		//cardCon.position = new Vector3(transform.position.x,transform.position.y, transform.position.z * (float)(11d/ 10d));
+			cardCon.sizeDelta = new Vector2(1f,1f);
+			cardCon.position = new Vector3(cardCon.position.x, cardCon.position.y, 0);
 			scaleUp = false;
 			cont = 0;
 	
