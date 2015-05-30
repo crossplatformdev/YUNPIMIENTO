@@ -14,18 +14,35 @@ public class Game_Master : MonoBehaviour {
 			if(_GMinstance == null)
 				_GMinstance = GameObject.FindObjectOfType<Game_Master>();
 
-			return GMinstance;
+			return _GMinstance;
 
 		}
-
 
 	}
 
 	// --------------------- Atributos -----------------------
 
 
-	private static bool gameOver;
-	private static bool gameWon;
+	private bool gameOver;
+	private bool gameWon;
+
+	private int diffLevel; // nivel de dificultad
+
+	private int totalRounds;
+	private int roundNumber;
+
+	private int day;
+
+	private Card[] handCards; // robo de cartas.
+
+	private bool enableControl;
+
+	public GameObject cardPref;
+
+	// -------------------- Elementos de la Escena -----------
+
+	[SerializeField] private Wife theWife;
+	[SerializeField] private Slots_Manager slotManager;
 
 
 	// --------------------- Inicializacion ------------------
@@ -34,52 +51,163 @@ public class Game_Master : MonoBehaviour {
 
 		gameOver = false;
 		gameWon = false;
+		handCards = new Card[7];
+		enableControl = false;
+		theWife.setAffinity(25);
 
 	}
 
-	void Update(){
+	// ------------------- Getters y Setters -------------------
 
-		if(Input.GetButtonDown ("Pause")) PauseGame ();
+	public Wife getWife(){
+
+		return theWife;
 
 	}
 
-	// ------------------ Metodos y Funcionalidad ------------
+	// ------------------ Gestion de Rondas
 
 
 
-	public void PauseGame(){
+	// Gestiona todo el resultado del turno, una vez que se ha completado la sentencia o combinacion de cartas.
+	// Cada vez que se asigna una carta, Slot_Manager lanza una comprobacion de ronda. 
 
-		print ("Pausando");
+	public void NewRound(){
 
-		if(Time.timeScale == 1){
+		CinematicScene ();
 
-			Time.timeScale = 0;
-			print ("Pausando");
+		if(gameOver == false)slotManager.ResetSlots();
+		ShuffleDeck();
+		day++;
 
-		}else if(Time.timeScale != 1){
+		enableControl = true;
 
-			Time.timeScale = 1;
-			print ("Despausando");
+	}
+
+	public void CheckRound(){ // Actualizar para implementar los calculos. 
+
+
+		if(slotManager.CheckSlots() == false){
+
+			int result = 0;
+
+			result = slotManager.CheckSequence();
+
+			//theWife.UpdateAffinity(result);
+			theWife.UpdateAffinity(10);
+
+			if(theWife.CheckAffinityStatus() == -1) GameOver();
+			else if (theWife.CheckAffinityStatus () == 1) GameWon ();
+
+			NewRound ();
+
+		}
+
+	}
+	
+	public void ShuffleDeck(){
+
+
+		GameObject EveCard = GameObject.Instantiate (cardPref) as GameObject;
+		Card myEveCard = EveCard.GetComponent<Card>();
+		GameObject EveCard2 = GameObject.Instantiate (cardPref) as GameObject;
+		Card myEveCard2 = EveCard.GetComponent<Card>();
+		GameObject EveCard3 = GameObject.Instantiate (cardPref) as GameObject;
+		Card myEveCard3 = EveCard.GetComponent<Card>();
+
+		myEveCard.getEventCard();
+		myEveCard2.getEventCard();
+		myEveCard3.getEventCard();
+
+
+		GameObject LocCard = GameObject.Instantiate (cardPref) as GameObject;
+		Card myLocCard = EveCard.GetComponent<Card>();
+		GameObject LocCard2 = GameObject.Instantiate (cardPref) as GameObject;
+		Card myLocCard2 = EveCard.GetComponent<Card>();
+
+		myLocCard.getLocationCard();
+		myLocCard2.getLocationCard();
+
+		GameObject ConCard = GameObject.Instantiate (cardPref) as GameObject;
+		Card myConCard = EveCard.GetComponent<Card>();
+		GameObject ConCard2 = GameObject.Instantiate (cardPref) as GameObject;
+		Card myConCard2 = EveCard.GetComponent<Card>();
+		myConCard.getConsecuenceCard();
+		myConCard2.getConsecuenceCard();
+
+		handCards[0] = myEveCard;
+		handCards[1] = myEveCard2;
+		handCards[2] = myEveCard3;
+
+
+		handCards[3] = myLocCard;
+		handCards[4] = myLocCard2;
+
+		handCards[5] = myConCard;
+		handCards[6] = myConCard2;
+
+		Debug.Log (handCards[1].getID());
+
+
+	}
+
+	public void CinematicScene(){
+
+
+
+	}
+
+	public void EnableControl(){
+
+		enableControl = true;
+
+	}
+
+	public void DisableControl(){
+
+		enableControl = false;
+
+	}
+
+	public bool getControlStatus(){
+
+		return enableControl;
+
+	}
+
+	public void NextLevel(int lvl){
+
+		switch(lvl){
+
+		case 1:
+
+			break;
+
+		case 2:
+
+		Application.LoadLevel("Prototipo1");
+
+			break;
 
 		}
 
 	}
 
-	public static void GameOver(){
+	public void GameOver(){
 
 		gameOver = true;
 		print ("El juego ha terminado");
 
 	}
 
-	public static void GameWon(){
+	public void GameWon(){
 
 		gameWon = true;
 		print ("Enhorabuena, sigues teniendo una esposa...");
 
 	}
 
-	public static void Exit(){
+	public void Exit(){
 
 		Application.Quit ();
 

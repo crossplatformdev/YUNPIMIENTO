@@ -1,11 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Slots_Manager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game_Master.cs">
     <Files>
-      <File FileName="Assets\Scripts\Game_Master.cs" Line="46" Column="60" />
-      <File FileName="Assets\Scripts\Card.cs" Line="30" Column="20" />
-      <File FileName="Assets\Scripts\Wife.cs" Line="37" Column="4" />
-      <File FileName="Assets\Scripts\Slots_Manager.cs" Line="32" Column="28" />
+      <File FileName="Assets\Scripts\Slots_Manager.cs" Line="95" Column="2" />
+      <File FileName="Assets\Scripts\Game_Master.cs" Line="109" Column="3" />
+      <File FileName="Assets\Scripts\Card.cs" Line="54" Column="31" />
+      <File FileName="Assets\Scripts\Slot.cs" Line="71" Column="1" />
+      <File FileName="Assets\Scripts\Wife.cs" Line="25" Column="2" />
+      <File FileName="Assets\Scripts\CardLogic.cs" Line="46" Column="13" />
+      <File FileName="Assets\Scripts\Database.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
