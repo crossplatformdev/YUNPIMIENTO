@@ -4,6 +4,10 @@ using System;
 
 public class Game_Master : MonoBehaviour {
 
+	public Sprite[] eventImages;
+	public Sprite[] locationImages;
+	public Sprite[] consecuencesImages;
+
 	// ----------------------- Singleton ---------------------
 
 	private static Game_Master _GMinstance;
@@ -29,16 +33,15 @@ public class Game_Master : MonoBehaviour {
 
 	private int diffLevel; // nivel de dificultad
 
-	private int totalRounds;
-	private int roundNumber;
-
 	private int day;
 
-	private CardLogic[] handCards; // robo de cartas.
+	public CardLogic[] slotCards = new CardLogic[3];
+
+	public CardLogic[] handCards = new CardLogic[7];// robo de cartas.
 
 	private bool enableControl;
 
-	public GameObject cardPref;
+	private GameObject cardPref;
 
 	private GameObject cardBase;
 
@@ -64,18 +67,9 @@ public class Game_Master : MonoBehaviour {
 	GameObject ConCard;
 	GameObject ConCard2;
 	
-<<<<<<< HEAD
 	CardLogic myConCard;
 	CardLogic myConCard2;
 */	
-=======
-	Card myConCard;
-	Card myConCard2;
-
-	public GameObject fader;
-	Fader fader2;
-
->>>>>>> origin/master
 	// -------------------- Elementos de la Escena -----------
 
 	[SerializeField] private Wife theWife;
@@ -88,24 +82,15 @@ public class Game_Master : MonoBehaviour {
 
 		gameOver = false;
 		gameWon = false;
-		handCards = new CardLogic[7];
 		enableControl = false;
 		theWife.setAffinity(25);
-<<<<<<< HEAD
-
-		//BuildDeck();
-=======
-		fader2 = fader.GetComponentInChildren<Fader>();
-		BuildDeck();
-	
->>>>>>> origin/master
 
 	}
 
 	void Start(){
 
 		ShuffleDeck ();
-
+		
 	}
 
 	// ------------------- Getters y Setters -------------------
@@ -131,9 +116,7 @@ public class Game_Master : MonoBehaviour {
 
 		if(gameOver == false)slotManager.ResetSlots();
 
-		//ShuffleDeck();
-
-		slotManager.BuildHand(handCards);
+		ShuffleDeck();
 
 		enableControl = true;
 
@@ -165,9 +148,9 @@ public class Game_Master : MonoBehaviour {
 		cardBase = (GameObject)GameObject.FindWithTag("Database");
 
 		handCards[0] = cardBase.GetComponent<Database>().events[0];
+		print (" handCards " + handCards[0].getType() + " " + handCards[0].getID ()); 
 		handCards[1] = cardBase.GetComponent<Database>().events[1];
 		handCards[2] = cardBase.GetComponent<Database>().events[2];
-
 
 		handCards[3] = cardBase.GetComponent<Database>().locations[0];
 		handCards[4] = cardBase.GetComponent<Database>().locations[1];
@@ -190,8 +173,7 @@ public class Game_Master : MonoBehaviour {
 
 	public void CinematicScene(){
 
-		StartCoroutine ("FadeScene");
-		// FOTOS INTERMEDIAS, TEXTO, PAUSA, PULSE PARA CONTINUAR, TRANSICION,...
+
 
 	}
 

@@ -39,6 +39,7 @@ public class Slots_Manager : MonoBehaviour {
 	}
 
 
+
 	public void InitSlots(){
 
 		seqSlots[0].setType(Slot.slotTypes.Previous);
@@ -49,38 +50,38 @@ public class Slots_Manager : MonoBehaviour {
 
 	// Asigna la imagen a la casilla disponible.
 
-	public void AssignSlot(Slot slot){
+	public void AssignSlot(int pos){
 
 		// Comprueba que la casilla no tenga carta, y entonces se la asigna, marca la casilla como ocupada, y aumenta el contador.
 
-		//if(!seqSlots[freePlace].HaveCard()){
+		Game_Master.GMinstance.slotCards[freePlace] = Game_Master.GMinstance.handCards[pos] ;
 
-		//if(Game_Master.GMinstance.getControlStatus() == true){
-		
-		seqSlots[freePlace].setCard (slot.getCard());
-		seqSlots[freePlace].UpdateImage();
+		if(Game_Master.GMinstance.slotCards[freePlace].getType() == "eve"){
+
+			seqSlots[freePlace].UpdateImage (0,freePlace);
+
+		}
+
+		if (Game_Master.GMinstance.slotCards[freePlace].getType() == "loc"){
+
+			seqSlots[freePlace].UpdateImage (1,freePlace);
+
+		}
+
+		if (Game_Master.GMinstance.slotCards[freePlace].getType() == "con"){
+			
+			seqSlots[freePlace].UpdateImage (2,freePlace);
+			
+		}
+
 		slotsFilled[freePlace] = true;
 		freePlace++;
 		print("Asignando carta " + freePlace);
 
 		Game_Master.GMinstance.CheckRound ();
 
-	//	}
-
-		//}
-
 	}
 
-	public void BuildHand(CardLogic[] hand){
-		
-		for(int i =0; i < handSlots.Length; i++){
-
-			handSlots[i].setCard (hand[i]);
-			print ("metiendo cartas " + i);
-
-		}
-			
-	}
 
 	// Comprueba que sigue habiendo slots disponibles.
 
@@ -96,29 +97,38 @@ public class Slots_Manager : MonoBehaviour {
 		
 	}
 
-	public int CheckSequence(){
+	public int CheckSequence(){ // Combinaciones de evento -3
 
 		int result = 0;
-	
-		if(seqSlots[1].getCard().getType() != "eve"){
+
+		Debug.Log (Game_Master.GMinstance.slotCards[1]);
+
+		if(Game_Master.GMinstance.slotCards[1].getType().CompareTo("eve") != 0){
 
 			result = -7;
-
-			print (" resultado " + result + " de la carta " + seqSlots[1].getCard().getID());
 
 			return result;
 
 		}else{
 
-			int prevID = seqSlots[0].getCard().getID ();
-			int nextID = seqSlots[2].getCard().getID ();
-				CardLogic midCard = seqSlots[1].getCard ().getCard ();
 
-			for (int i = 0; i < 14; i++){
+			int nextID = Game_Master.GMinstance.slotCards[2].getID ();
+
+			if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("eve") == 0){
+
+				return -3;
+
+			}else{
+
+				int prevID = Game_Master.GMinstance.slotCards[0].getID ();
+			
+				for (int i = 0; i < 14; i++){
 
 					if(i == prevID - 1){
 
-					result += midCard.puntPrevias[i-1];
+						result += Game_Master.GMinstance.slotCards[1].puntPrevias[i-1];
+
+					}
 
 				}
 
@@ -128,13 +138,13 @@ public class Slots_Manager : MonoBehaviour {
 				
 				if(i == nextID - 1){
 					
-					result += midCard.puntPosteriores[i-1];
+					result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i-1];
 					
 				}
 				
 			}
 
-			print (" resultado " + result + " de la carta " + seqSlots[1].getCard().getID());
+			print (" resultado " + result + " de la carta");
 
 			return result;
 
@@ -149,9 +159,9 @@ public class Slots_Manager : MonoBehaviour {
 
 		freePlace = 0;
 
-		for(int i = 0; i < seqSlots.Length; i++){
+		for(int i = 0; i < 3 ; i++){
 
-			seqSlots[i].ResetCard();
+			Game_Master.GMinstance.slotCards[i] = null;
 			slotsFilled[i] = false;
 
 		}
