@@ -82,10 +82,7 @@ public class Game_Master : MonoBehaviour {
 		handCards = new Card[7];
 		enableControl = false;
 		theWife.setAffinity(25);
-<<<<<<< HEAD
 		fader2 = fader.GetComponentInChildren<Fader>();
-=======
->>>>>>> origin/master
 		BuildDeck();
 	
 
