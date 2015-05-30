@@ -108,6 +108,13 @@ public class Slot : MonoBehaviour {
 
 	}
 
+	public void newImage(Sprite img){
+
+		cardImage = img;
+		HUDImage.sprite = cardImage;
+
+	}
+
 	public void ResetCard(){
 
 		if(HUDImage.sprite != null) cardImage = HUDImage.sprite;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+
+using UnityEngine;
 using System.Collections;
 
 public class Slots_Manager : MonoBehaviour {
@@ -149,6 +150,29 @@ public class Slots_Manager : MonoBehaviour {
 			return result;
 
 		} 
+
+	}
+
+
+	public void UpdateSlots(string type,int pos, int imgVal){
+
+		if(type.CompareTo("eve") == 0){
+
+			handSlots[pos].newImage (Game_Master.GMinstance.eventImages[imgVal]);
+
+		}
+
+		if(type.CompareTo("loc") == 0){
+			
+			handSlots[pos].newImage (Game_Master.GMinstance.locationImages[imgVal]);
+			
+		}
+
+		if(type.CompareTo("con") == 0){
+			
+			handSlots[pos].newImage (Game_Master.GMinstance.consecuencesImages[imgVal]);
+			
+		}
 
 	}
 
