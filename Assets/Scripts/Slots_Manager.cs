@@ -152,7 +152,7 @@ public class Slots_Manager : MonoBehaviour {
 				
 				if(i == nextID - 1){
 					
-					if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("con") == 0) result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i+7];
+					if(Game_Master.GMinstance.slotCards[2].getType().CompareTo("con") == 0) result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i+7];
 					else result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i];
 					
 				}
