@@ -127,7 +127,7 @@ public class Game_Master : MonoBehaviour {
 
 		if(slotManager.CheckSlots() == false){
 
-			int result = 0;
+			float result = 0;
 
 			result = slotManager.CheckSequence();
 
