@@ -45,35 +45,12 @@ public class Game_Master : MonoBehaviour {
 
 	private GameObject cardBase;
 
-	// Cartas.
+	public Cinematic myCinematics;
 
-/*
-	GameObject EveCard;
-	GameObject EveCard2;
-	GameObject EveCard3;
-
-	
-
-	CardLogic myEveCard;
-	CardLogic myEveCard2;
-	CardLogic myEveCard3;
-	
-	GameObject LocCard;
-	GameObject LocCard2;
-
-	CardLogic myLocCard;
-	CardLogic myLocCard2;
-	
-	GameObject ConCard;
-	GameObject ConCard2;
-	
-	CardLogic myConCard;
-	CardLogic myConCard2;
-*/	
 	// -------------------- Elementos de la Escena -----------
 
 	[SerializeField] private Wife theWife;
-	[SerializeField] private Slots_Manager slotManager;
+	public Slots_Manager slotManager;
 
 
 	// --------------------- Inicializacion ------------------
@@ -84,6 +61,8 @@ public class Game_Master : MonoBehaviour {
 		gameWon = false;
 		enableControl = false;
 		theWife.setAffinity(25);
+		myCinematics = GetComponent<Cinematic>();
+		day = 1;
 
 	}
 
@@ -101,6 +80,18 @@ public class Game_Master : MonoBehaviour {
 
 	}
 
+	public bool getWinState(){
+
+		return gameWon;
+
+	}
+
+	public bool getOverState(){
+		
+		return gameOver;
+		
+	}
+
 	// ------------------ Gestion de Rondas
 
 
@@ -110,13 +101,13 @@ public class Game_Master : MonoBehaviour {
 
 	public void NewRound(){
 
-		CinematicScene ();
+		//CinematicScene ();
 
 		day++;
 
 		if(gameOver == false)slotManager.ResetSlots();
 
-		ShuffleDeck();
+		//ShuffleDeck();
 
 		enableControl = true;
 
@@ -136,11 +127,25 @@ public class Game_Master : MonoBehaviour {
 
 			if(theWife.CheckAffinityStatus() == -1) GameOver();
 			else if (theWife.CheckAffinityStatus () == 1) GameWon ();
-
-			NewRound ();
+			else{
+				for (int i = 0; i < slotManager.handSlots.Length; i++){
+					slotManager.handSlots[i].disableButton(10);
+				}
+				//NewRound ();
+				CinematicScene ();
+			}
 
 		}
 
+	}
+
+
+	
+	
+	public void CinematicScene(){
+		
+		myCinematics.Transition (day);
+		
 	}
 
 	public void ShuffleDeck(){
@@ -237,12 +242,6 @@ public class Game_Master : MonoBehaviour {
 
 	}
 
-	public void CinematicScene(){
-
-
-
-	}
-
 	public void EnableControl(){
 
 		enableControl = true;
@@ -282,6 +281,8 @@ public class Game_Master : MonoBehaviour {
 	public void GameOver(){
 
 		gameOver = true;
+		myCinematics.LostScreen();
+
 		print ("El juego ha terminado");
 
 	}
@@ -289,6 +290,7 @@ public class Game_Master : MonoBehaviour {
 	public void GameWon(){
 
 		gameWon = true;
+		myCinematics.WonScreen();
 		print ("Enhorabuena, sigues teniendo una esposa...");
 
 	}

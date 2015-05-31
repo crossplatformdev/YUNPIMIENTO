@@ -49,6 +49,16 @@ public class Slot : MonoBehaviour {
 			disableLimit++;
 		}
 	}
+	
+	public void disableButton(int op){
+		
+		if(disableLimit < op){
+			
+			slotButton.enabled = false;
+			HUDImage.enabled = false;
+			disableLimit++;
+		}
+	}
 
 	public void enableButton(){
 		disableLimit = 0;

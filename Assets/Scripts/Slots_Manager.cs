@@ -27,7 +27,7 @@ public class Slots_Manager : MonoBehaviour {
 	// -------------------- Properties --------------
 
 	[SerializeField] private Slot[] seqSlots;
-	[SerializeField] private Slot[] handSlots;
+	public Slot[] handSlots;
 	private bool[] slotsFilled;
 	private int freePlace;
 	
