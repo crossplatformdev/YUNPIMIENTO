@@ -48,8 +48,10 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Card.cs" />
      <Compile Include="Assets\Scripts\CardLogic.cs" />
+     <Compile Include="Assets\Scripts\Cinematic.cs" />
      <Compile Include="Assets\Scripts\CompareCards.cs" />
      <Compile Include="Assets\Scripts\Database.cs" />
+     <Compile Include="Assets\Scripts\DragHandler.cs" />
      <Compile Include="Assets\Scripts\Fader.cs" />
      <Compile Include="Assets\Scripts\Game_Master.cs" />
      <Compile Include="Assets\Scripts\Pruebas_Prototipo.cs" />
