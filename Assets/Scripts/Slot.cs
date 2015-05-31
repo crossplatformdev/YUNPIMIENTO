@@ -14,7 +14,7 @@ public class Slot : MonoBehaviour {
 
 	private Button slotButton;
 
-	private static int disableLimit = 0;
+	public static int disableLimit = 0;
 
 	public enum slotTypes{ // Esto esta por determinar.
 		
@@ -43,14 +43,16 @@ public class Slot : MonoBehaviour {
 	public void disableButton(){
 
 		if(disableLimit < 2){
-			disableLimit++;
+
 			slotButton.enabled = false;
 			HUDImage.enabled = false;
+			disableLimit++;
 		}
 	}
 
 	public void enableButton(){
-		
+		disableLimit = 0;
+
 		slotButton.enabled = true;
 		HUDImage.enabled = true;
 		
