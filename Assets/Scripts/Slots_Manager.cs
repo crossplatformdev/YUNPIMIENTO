@@ -8,8 +8,6 @@ public class Slots_Manager : MonoBehaviour {
 	// ----------------------- Singleton ---------------------
 	
 	private static Game_Master _SlotMinstance;
-	private int previa;
-	private int post;
 	
 	public static Game_Master SlotMinstance{
 		
@@ -100,9 +98,9 @@ public class Slots_Manager : MonoBehaviour {
 		
 	}
 
-	public float CheckSequence(){ // Combinaciones de evento -3
+	public int CheckSequence(){ // Combinaciones de evento -3
 
-		float result = 0;
+		int result = 0;
 
 		Debug.Log (Game_Master.GMinstance.slotCards[1]);
 
@@ -120,8 +118,6 @@ public class Slots_Manager : MonoBehaviour {
 			if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("eve") == 0){
 
 				result += -3;
-				previa = -3;
-				
 
 			}else{
 
@@ -133,14 +129,8 @@ public class Slots_Manager : MonoBehaviour {
 
 						if(i == prevID - 1){
 
-							if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("con") == 0){
-								result += Game_Master.GMinstance.slotCards[1].puntPrevias[i+7];
-								previa = Game_Master.GMinstance.slotCards[1].puntPrevias[i+7];
-							}
-							else{
-								result += Game_Master.GMinstance.slotCards[1].puntPrevias[i];
-								previa = Game_Master.GMinstance.slotCards[1].puntPrevias[i];
-							}
+						if(Game_Master.GMinstance.slotCards[0].getType().CompareTo("con") == 0) result += Game_Master.GMinstance.slotCards[1].puntPrevias[i+7];
+						else result += Game_Master.GMinstance.slotCards[1].puntPrevias[i];
 
 						}
 
@@ -151,7 +141,6 @@ public class Slots_Manager : MonoBehaviour {
 			if(Game_Master.GMinstance.slotCards[2].getType().CompareTo("eve") == 0){
 				
 				result += -3;
-				post = -3;
 				
 			}else{
 
@@ -163,14 +152,8 @@ public class Slots_Manager : MonoBehaviour {
 				
 				if(i == nextID - 1){
 					
-					if(Game_Master.GMinstance.slotCards[2].getType().CompareTo("con") == 0){
-						result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i+7];
-						post = Game_Master.GMinstance.slotCards[1].puntPosteriores[i+7];
-					}
-					else{
-						result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i];
-						post = Game_Master.GMinstance.slotCards[1].puntPosteriores[i];
-					}
+					if(Game_Master.GMinstance.slotCards[2].getType().CompareTo("con") == 0) result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i+7];
+					else result += Game_Master.GMinstance.slotCards[1].puntPosteriores[i];
 					
 				}
 				
@@ -181,17 +164,7 @@ public class Slots_Manager : MonoBehaviour {
 			
 
 			} 
-			
-			/////
-			if (previa > 0 && post < 0){
-				result += post*0.5f;
-			}
-			if (previa < 0 && post > 0){
-				result += previa*0.5f;
-			}
-			
-			
-			
+
 			return result;
 
 		}

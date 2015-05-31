@@ -1,8 +1,21 @@
 ﻿<Properties>
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game_Master1.cs">
     <Files>
       <File FileName="Assets\Scripts\Game_Master1.cs" Line="142" Column="20" />
+=======
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Wife.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Game_Master.cs" Line="142" Column="4" />
+      <File FileName="Assets\Scripts\Fader.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Slots_Manager.cs" Line="222" Column="1" />
+      <File FileName="Assets\Scripts\Slot.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SoundMgr.cs" Line="2" Column="1" />
+      <File FileName="Assets\Scripts\Cinematic.cs" Line="6" Column="2" />
+      <File FileName="Assets\Scripts\Wife.cs" Line="54" Column="17" />
+>>>>>>> origin/master
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

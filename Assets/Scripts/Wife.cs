@@ -9,7 +9,7 @@ public class Wife : MonoBehaviour {
 	public Slider affinityBar;
 	[SerializeField] private int maxAffinity;
 	private int startValue;
-	private float affinity;
+	private int affinity;
 
 
 
@@ -23,7 +23,7 @@ public class Wife : MonoBehaviour {
 	// ------ Getters & Setters
 
 
-	public void setAffinity(float nAffinity){
+	public void setAffinity(int nAffinity){
 
 		affinity = nAffinity;
 		affinityBar.maxValue = maxAffinity;
@@ -31,13 +31,13 @@ public class Wife : MonoBehaviour {
 		affinityBar.value = startValue;
 	}
 
-	public float getAffinity(){
+	public int getAffinity(){
 
 		return affinity;
 
 	}
 
-	public void UpdateAffinity(float nAffinity){
+	public void UpdateAffinity(int nAffinity){
 	
 		//affintyBar.value += Mathf.MoveTowards(0, nAffinity, 0.1f);
 		if(affinityBar.value + nAffinity > maxAffinity){
@@ -45,6 +45,13 @@ public class Wife : MonoBehaviour {
 			affinityBar.value = maxAffinity;
 			print (affinityBar.value);
 			affinity = maxAffinity;
+			print ("La afinidad ha cambiado a " + affinity);
+
+		}else if (affinityBar.value + nAffinity < 0){
+
+			affinityBar.value = 0;
+			print (affinityBar.value);
+			affinity = 0;
 			print ("La afinidad ha cambiado a " + affinity);
 
 		}else{
