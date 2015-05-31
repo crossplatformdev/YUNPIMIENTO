@@ -178,6 +178,10 @@ public class Slots_Manager : MonoBehaviour {
 
 		}
 
+		//FINAL FUNDIDO
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.lockState = CursorLockMode.Confined;
+		
 	}
 
 
