@@ -16,7 +16,7 @@ public class Cinematic : MonoBehaviour {
 	public void Transition(int day){
 
 		if(Game_Master.GMinstance.getWinState() == false && Game_Master.GMinstance.getOverState() == false){
-<<<<<<< HEAD
+
 			
 			secuenceCam.enabled = true;
 			imgCanvas.alpha = 0.0f;
@@ -29,19 +29,6 @@ public class Cinematic : MonoBehaviour {
 			//textBox.text = "Day " + day + "... ";
 
 			//imgFade.CrossFadeAlpha(1.0f, 3.0f, false);
-=======
-
-
-			StartCoroutine ("Fading");
-
-			secuenceCam.enabled = true;
-			mainCam.enabled = false;
-
-			textBox.text = "Day " + day + "... ";
-
-			imgFade.CrossFadeAlpha(1.0f, 3.0f, false);
->>>>>>> origin/master
-
 
 			//secuenceCam.enabled = false;
 			//mainCam.enabled = true;
@@ -50,7 +37,7 @@ public class Cinematic : MonoBehaviour {
 
 	}
 
-<<<<<<< HEAD
+
 	IEnumerator Fading(int day){
 		
 		yield return new WaitForSeconds(2.0f);
@@ -63,8 +50,11 @@ public class Cinematic : MonoBehaviour {
 			yield return null;
 		
 		}
+		GameObject.Find("DayX").GetComponent<Text>().text = "DAY " + (day);
 		Game_Master.GMinstance.slotManager.ResetSlots();
 		Game_Master.GMinstance.ShuffleDeck();
+		GameObject.Find ("BocPeque").GetComponent<Image>().sprite = Game_Master.GMinstance.slotManager.normal;
+		
 		yield return new WaitForSeconds(2.0f);
 		
 		
@@ -92,7 +82,9 @@ public class Cinematic : MonoBehaviour {
 		// Fade.
 
 		print ("Estoy llamando a WonScreen");
+		GameObject.FindWithTag("SoundMgr").GetComponent<SoundMgr>().PlayWin();
 
+		imgCanvas.alpha = 1.0f;
 		textBox.text = "";
 		imgFade.color = Color.white;
 		imgFade.sprite = WinScreen;
@@ -103,38 +95,7 @@ public class Cinematic : MonoBehaviour {
 
 	}
 
-=======
-	IEnumerator Fading(){
-
-		for(float i = 0.0f; i < 1.0f; i += 0.05f){
-			
-			imgCanvas.alpha = 0.0f;
-			imgCanvas.alpha += 0.05f;
-			yield return null;
-		}
-
-	}
-
-	public void WonScreen(){
-
-		secuenceCam.enabled = true;
-		mainCam.enabled = false;
-		
-		// Fade.
-
-		print ("Estoy llamando a WonScreen");
-
-		textBox.text = "";
-		imgFade.color = Color.white;
-		imgFade.sprite = WinScreen;
-		
-		// Fade.
-		
-		//secuenceCam.enabled = false; mainCam.enabled = true;
-
-	}
-
->>>>>>> origin/master
+	
 	public void LostScreen(){
 
 		secuenceCam.enabled = true;
@@ -143,7 +104,8 @@ public class Cinematic : MonoBehaviour {
 		// Fade.
 
 		print ("Estoy llamando a LostScreen");
-
+		GameObject.FindWithTag("SoundMgr").GetComponent<SoundMgr>().PlayLose();
+		imgCanvas.alpha = 1.0f;
 		textBox.text = "";
 		imgFade.color = Color.white;
 		imgFade.sprite = LoseScreen;

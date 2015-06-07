@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class Game_Master : MonoBehaviour {
 
@@ -47,6 +48,8 @@ public class Game_Master : MonoBehaviour {
 
 	public Cinematic myCinematics;
 
+	public Timer drunkClock; // ---------------------- TIMER!!!!!!!!!!!!!!!!!!
+
 	// -------------------- Elementos de la Escena -----------
 
 	[SerializeField] private Wife theWife;
@@ -62,16 +65,39 @@ public class Game_Master : MonoBehaviour {
 		enableControl = false;
 		theWife.setAffinity(25);
 		myCinematics = GetComponent<Cinematic>();
-		day = 1;
+		day = 2;
 
 	}
 
 	void Start(){
 
 		ShuffleDeck ();
+		GameObject.FindWithTag("SoundMgr").GetComponent<SoundMgr>().PlayIntro();
+		drunkClock.launchTimer();
 		
 	}
 
+
+
+	void Update(){
+		if(Input.GetKeyDown("escape")){
+			Application.LoadLevel (0);
+		}
+
+		
+		if( drunkClock.timerPassed()){
+			
+			for(int i = 0; i < 3; i++){
+				
+				if(!slotManager.slotsFilled[i])slotManager.AssignSlot (UnityEngine.Random.Range (0, 7));
+				
+				// GenerateIndexes.generateIndexes(3, null);
+			}
+			
+		}
+
+
+	}
 	// ------------------- Getters y Setters -------------------
 
 	public Wife getWife(){
@@ -102,14 +128,19 @@ public class Game_Master : MonoBehaviour {
 	public void NewRound(){
 
 		//CinematicScene ();
-
 		day++;
+		
+		
 
-		if(gameOver == false)slotManager.ResetSlots();
+		//if(gameOver == false)slotManager.ResetSlots();
 
 		//ShuffleDeck();
 
 		enableControl = true;
+
+		drunkClock.ResetTimer();
+		drunkClock.launchTimer(10); // ---------------------- TIMER!!!!!!!!!!!!!!!!!!
+
 
 	}
 
@@ -118,7 +149,10 @@ public class Game_Master : MonoBehaviour {
 
 		if(slotManager.CheckSlots() == false){
 
-			int result = 0;
+			drunkClock.roundWasSuccesful();  // ---------------------- TIMER!!!!!!!!!!!!!!!!!!
+
+
+			float result = 0;
 
 			result = slotManager.CheckSequence();
 
@@ -150,58 +184,83 @@ public class Game_Master : MonoBehaviour {
 
 	public void ShuffleDeck(){
 
+		int[] dispersion = GenerateIndexes.generateIndexes(7, "dispersion");
+		/*dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);
+		dispersion = Shuffle(dispersion);*/
+		dispersion = Shuffle(dispersion);
+		
 		cardBase = (GameObject)GameObject.FindWithTag("Database");
 
-		int[] randNot = new int[3];
+		int[] eveArray = GenerateIndexes.generateIndexes(7, "eve");//new int[3];
 
-		int rand = RandomNums (randNot);
+		//int rand = RandomNums (randNot);
 
-		randNot[0] = rand;
+		//randNot[0] = rand;
 
-		handCards[0] = cardBase.GetComponent<Database>().events[rand];
-		slotManager.UpdateSlots("eve", 0, handCards[0].getID()-1); 
+		handCards[dispersion[0]] = cardBase.GetComponent<Database>().events[eveArray[0]];
+		slotManager.UpdateSlots("eve", dispersion[0], handCards[dispersion[0]].getID()-1); 
 
-		rand = RandomNums (randNot);
+		//rand = RandomNums (randNot);
 		
-		randNot[1] = rand;
+		//randNot[1] = rand;
 
 
-		print (" handCards " + handCards[0].getType() + " " + handCards[0].getID ()); 
-		handCards[1] = cardBase.GetComponent<Database>().events[rand];
-		slotManager.UpdateSlots("eve", 1, handCards[1].getID()-1);
+		//print (" handCards " + handCards[0].getType() + " " + handCards[0].getID ()); 
+		handCards[dispersion[1]] = cardBase.GetComponent<Database>().events[eveArray[1]];
+		slotManager.UpdateSlots("eve", dispersion[1], handCards[dispersion[1]].getID()-1);
 
-		rand = RandomNums (randNot);
+		//rand = RandomNums (randNot);
 		
-		randNot[2] = rand;
+		//eveArray[2] = rand;
 
 
-		handCards[2] = cardBase.GetComponent<Database>().events[rand];
-		slotManager.UpdateSlots("eve", 2, handCards[2].getID()-1); 
+		handCards[dispersion[2]] = cardBase.GetComponent<Database>().events[eveArray[2]];
+		slotManager.UpdateSlots("eve", dispersion[2], handCards[dispersion[2]].getID()-1); 
 
-
-		handCards[3] = cardBase.GetComponent<Database>().locations[rand];
-		slotManager.UpdateSlots("loc", 3, handCards[3].getID()-1); 
-
-		randNot = new int[3];
+		int[] locArray = GenerateIndexes.generateIndexes(7, "loc");//new int[3];
 		
-		rand = RandomNums (randNot);
+		handCards[dispersion[3]] = cardBase.GetComponent<Database>().locations[locArray[0]];
+		slotManager.UpdateSlots("loc", dispersion[3], handCards[dispersion[3]].getID()-1); 
+
+		//randNot = new int[3];
 		
-		randNot[0] = rand;
-
-		handCards[4] = cardBase.GetComponent<Database>().locations[rand];
-		slotManager.UpdateSlots("loc", 4, handCards[4].getID()-1); 
-
-		handCards[5] = cardBase.GetComponent<Database>().consecuences[rand];
-		slotManager.UpdateSlots("con", 5, handCards[5].getID()-1); 
-
-		randNot = new int[3];
+		//rand = RandomNums (randNot);
 		
-		rand = RandomNums (randNot);
-		
-		randNot[0] = rand;
+		//randNot[0] = rand;
 
-		handCards[6] = cardBase.GetComponent<Database>().consecuences[rand];
-		slotManager.UpdateSlots("con", 6, handCards[6].getID()-1); 
+		handCards[dispersion[4]] = cardBase.GetComponent<Database>().locations[locArray[1]];
+		slotManager.UpdateSlots("loc", dispersion[4], handCards[dispersion[4]].getID()-1); 
+		
+		int[] conArray = GenerateIndexes.generateIndexes(7, "con");//new int[3];
+		
+		handCards[dispersion[5]] = cardBase.GetComponent<Database>().consecuences[conArray[0]];
+		slotManager.UpdateSlots("con", dispersion[5], handCards[dispersion[5]].getID()-1); 
+
+		//randNot = new int[3];
+		
+		//rand = RandomNums (randNot);
+		
+		//randNot[0] = rand;
+		
+		handCards[dispersion[6]] = cardBase.GetComponent<Database>().consecuences[conArray[1]];
+		slotManager.UpdateSlots("con", dispersion[6], handCards[dispersion[6]].getID()-1); 
 
 		
 		//handCards = Shuffle(handCards);
@@ -265,12 +324,13 @@ public class Game_Master : MonoBehaviour {
 		switch(lvl){
 
 		case 1:
-
+			
+			Application.LoadLevel("StartMenu");
 			break;
 
 		case 2:
 
-		Application.LoadLevel("Dummy_1");
+			Application.LoadLevel("Game");
 
 			break;
 
@@ -313,6 +373,21 @@ public class Game_Master : MonoBehaviour {
 
 		System.Random r = new System.Random(DateTime.Now.Millisecond);
 		CardLogic temp;
+		int randomNumber;
+		int count = deck.Length;
+		for (int index = count -1; index > 0; index--){
+			randomNumber = r.Next(0, index+1);
+			temp = deck [index];
+			deck[index] = deck[randomNumber];
+			deck[randomNumber] = temp;
+		}	
+		return deck;	
+	}
+	
+	public int[] Shuffle(int[] deck){  
+		
+		System.Random r = new System.Random(DateTime.Now.Millisecond);
+		int temp;
 		int randomNumber;
 		int count = deck.Length;
 		for (int index = count -1; index > 0; index--){
