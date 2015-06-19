@@ -86,14 +86,14 @@ public class Game_Master : MonoBehaviour {
 
 		
 		if( drunkClock.timerPassed()){
-			
+
 			for(int i = 0; i < 3; i++){
 				
 				if(!slotManager.slotsFilled[i])slotManager.AssignSlot (UnityEngine.Random.Range (0, 7));
 				
 				// GenerateIndexes.generateIndexes(3, null);
+	
 			}
-			
 		}
 
 
@@ -125,23 +125,22 @@ public class Game_Master : MonoBehaviour {
 	// Gestiona todo el resultado del turno, una vez que se ha completado la sentencia o combinacion de cartas.
 	// Cada vez que se asigna una carta, Slot_Manager lanza una comprobacion de ronda. 
 
-	public void NewRound(){
-
-		//CinematicScene ();
-		day++;
-		
-		
-
-		//if(gameOver == false)slotManager.ResetSlots();
-
-		//ShuffleDeck();
-
-		enableControl = true;
+	public void ResetTimer(){
 
 		drunkClock.ResetTimer();
-		drunkClock.launchTimer(10); // ---------------------- TIMER!!!!!!!!!!!!!!!!!!
 
+	}
 
+	public void NewRound(){
+	
+		day++;
+		drunkClock.launchTimer(10); 
+		
+		enableControl = true;
+
+		//if(gameOver == false)slotManager.ResetSlots();
+		//ShuffleDeck();
+		//CinematicScene ();
 	}
 
 	public void CheckRound(){ // Actualizar para implementar los calculos. 

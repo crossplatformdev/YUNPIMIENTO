@@ -43,13 +43,16 @@ public class Cinematic : MonoBehaviour {
 		yield return new WaitForSeconds(2.0f);
 		float i;
 		
-		for(i = 0.0f; i < 0.95f; i += 0.01f){
+		for(i = 0.0f; i < 0.99f; i += 0.01f){
 			
 			
 			imgCanvas.alpha += 0.01f;
 			yield return null;
 		
 		}
+
+		imgCanvas.alpha = 1.0f;
+		Game_Master.GMinstance.ResetTimer();
 		GameObject.Find("DayX").GetComponent<Text>().text = "DAY " + (day);
 		Game_Master.GMinstance.slotManager.ResetSlots();
 		Game_Master.GMinstance.ShuffleDeck();

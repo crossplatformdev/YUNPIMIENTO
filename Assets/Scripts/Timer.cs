@@ -29,9 +29,21 @@ public class Timer : MonoBehaviour {
 
 	}
 
+	public void resetTimerPassed(){
+
+		roundFailed = false;
+
+	}
+
 	public void roundWasSuccesful(){ // Cuando se completa con exito la ronda.
 
 		roundSucces = true;
+
+	}
+
+	public bool roundResult(){
+
+		return roundSucces;
 
 	}
 
